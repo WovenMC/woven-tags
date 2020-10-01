@@ -14,15 +14,22 @@
  * limitations under the License.
  */
 
-package net.wovenmc.woven.impl.template;
+package net.wovenmc.woven.impl.tags;
 
-import org.apache.logging.log4j.LogManager;
+import org.jetbrains.annotations.ApiStatus;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.resource.ResourceType;
+import net.minecraft.util.registry.DynamicRegistryManager;
+import net.wovenmc.woven.api.resource.ResourceManagerHelper;
 
-public class TemplateModInitializer implements ModInitializer {
+@ApiStatus.Internal
+public class WovenTagsInitializer implements ModInitializer {
+	// Needed to lookup dynamic registries for tags.
+	public static DynamicRegistryManager registryManager = null;
+
 	@Override
 	public void onInitialize() {
-		LogManager.getLogger("woven_module_template").info("Woven Module Template initialized.");
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(WovenTagsImpl.INSTANCE);
 	}
 }
