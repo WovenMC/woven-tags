@@ -15,11 +15,6 @@
   },
   "icon": "assets/woven/icon.png",
   "environment": "*",
-  "entrypoints": {
-    "main": [
-      "net.wovenmc.woven.impl.tags.WovenTagsInitializer"
-    ]
-  },
   "mixins": [
     "woven-tags.mixins.json"
   ],

@@ -39,7 +39,6 @@ public class TagsTestMod {
 	}
 
 	private static Biome resolveBiome(MinecraftServer s, Identifier id) {
-		System.out.println(s.getRegistryManager().get(Registry.BIOME_KEY).get(id));
 		return s.getRegistryManager().get(Registry.BIOME_KEY).get(id);
 	}
 }

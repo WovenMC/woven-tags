@@ -30,7 +30,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.SinglePreparationResourceReloadListener;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.EntityTypeTags;
 import net.minecraft.tag.ItemTags;
@@ -38,20 +37,16 @@ import net.minecraft.tag.Tag;
 import net.minecraft.tag.TagGroup;
 import net.minecraft.tag.TagGroupLoader;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.registry.SimpleRegistry;
-import net.wovenmc.woven.api.resource.IdentifiableResourceReloadListener;
 import net.wovenmc.woven.api.tags.WovenTags;
-import net.wovenmc.woven.impl.tags.WovenTagsImpl.TagLoaderInfo;
 import net.wovenmc.woven.mixin.tags.DynamicRegistryManagerImplAccessor;
 import net.wovenmc.woven.mixin.tags.FluidTagsAccessor;
 
 @ApiStatus.Internal
-public class WovenTagsImpl extends SinglePreparationResourceReloadListener<List<TagLoaderInfo<?>>>
-		implements IdentifiableResourceReloadListener, WovenTags {
+public class WovenTagsImpl implements WovenTags {
 	public static final WovenTagsImpl INSTANCE = new WovenTagsImpl();
 	public static DynamicRegistryManager.Impl registryManager;
 
@@ -78,14 +73,12 @@ public class WovenTagsImpl extends SinglePreparationResourceReloadListener<List<
 		}
 	}
 
-	@Override
 	public Identifier getIdentifier() {
 		return new Identifier("woven_tags", "reload_listener");
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	protected List<TagLoaderInfo<?>> prepare(ResourceManager manager, Profiler profiler) {
+	public List<TagLoaderInfo<?>> prepare(ResourceManager manager) {
 		tagGroupMap.clear();
 		Map<? extends RegistryKey<? extends Registry<?>>, ? extends SimpleRegistry<?>> dynRegistries = ((DynamicRegistryManagerImplAccessor) (Object) registryManager)
 				.getRegistries();
@@ -121,8 +114,7 @@ public class WovenTagsImpl extends SinglePreparationResourceReloadListener<List<
 		return new TagGroupLoader<T>(registry::getOrEmpty, dataType, entryType);
 	}
 
-	@Override
-	protected void apply(List<TagLoaderInfo<?>> loaders, ResourceManager manager, Profiler profiler) {
+	public void apply(List<TagLoaderInfo<?>> loaders) {
 		for (TagLoaderInfo<?> info : loaders) {
 			TagGroup<?> group = info.loader.applyReload(info.tags);
 			tagGroupMap.put(info.registryKey, group);
@@ -134,6 +126,7 @@ public class WovenTagsImpl extends SinglePreparationResourceReloadListener<List<
 				|| registry == Registry.FLUID;
 	}
 
+	// gets the location of tags for a registry with the given identifier
 	private String getDataLocation(Identifier id) {
 		if (id.getNamespace().equals("minecraft")) {
 			return id.getPath();
@@ -142,7 +135,7 @@ public class WovenTagsImpl extends SinglePreparationResourceReloadListener<List<
 		}
 	}
 
-	static class TagLoaderInfo<T> {
+	public static class TagLoaderInfo<T> {
 		final RegistryKey<? extends Registry<T>> registryKey;
 		final TagGroupLoader<T> loader;
 		final Map<Identifier, Tag.Builder> tags;

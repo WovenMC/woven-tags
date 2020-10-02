@@ -5,6 +5,7 @@
   "mixins": [
     "DynamicRegistryManagerImplAccessor",
     "DynamicRegistryManagerMixin",
-    "FluidTagsAccessor"
+    "FluidTagsAccessor",
+    "TagManagerLoaderMixin"
   ]
 }
