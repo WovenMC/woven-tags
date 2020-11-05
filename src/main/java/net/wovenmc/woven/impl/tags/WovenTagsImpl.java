@@ -73,10 +73,6 @@ public class WovenTagsImpl implements WovenTags {
 		}
 	}
 
-	public Identifier getIdentifier() {
-		return new Identifier("woven_tags", "reload_listener");
-	}
-
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<TagLoaderInfo<?>> prepare(ResourceManager manager) {
 		tagGroupMap.clear();
