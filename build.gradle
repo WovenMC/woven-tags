@@ -6,6 +6,13 @@ plugins {
 	id 'net.minecrell.licenser' version '0.4.1'
 }
 
+repositories {
+	maven {
+		name "WovenMC"
+		url 'https://maven.wovenmc.net/repository/maven-public/'
+	}
+}
+
 archivesBaseName = project.module_namespace
 version = project.module_version
 group = project.maven_group
@@ -27,6 +34,9 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	// Mod loader
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	
+	modImplementation "net.wovenmc:woven_resource_loader:${project.resource_loader_version}"
+	include "net.wovenmc:woven_resource_loader:${project.resource_loader_version}"
 
 	api 'org.jetbrains:annotations:17.0.0'
 

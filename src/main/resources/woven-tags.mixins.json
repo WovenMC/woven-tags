@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "net.wovenmc.woven.mixin.tags",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "DynamicRegistryManagerImplAccessor",
+    "DynamicRegistryManagerMixin",
+    "FluidTagsAccessor",
+    "TagManagerLoaderMixin"
+  ]
+}

@@ -14,12 +14,20 @@
  * limitations under the License.
  */
 
-package net.wovenmc.woven.api.template;
+package net.wovenmc.woven.mixin.tags;
 
-/**
- * Represents a dummy class as template for API.
- * <p>
- * This should not be present in any module.
- */
-public class TemplateAPI {
+import java.util.Map;
+
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
+
+import net.minecraft.util.registry.DynamicRegistryManager;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.registry.SimpleRegistry;
+
+@Mixin(DynamicRegistryManager.Impl.class)
+public interface DynamicRegistryManagerImplAccessor {
+	@Accessor
+	Map<? extends RegistryKey<? extends Registry<?>>, ? extends SimpleRegistry<?>> getRegistries();
 }

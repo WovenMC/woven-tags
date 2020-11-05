@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "id": "woven_tags",
-  "name": "Woven Tags",
+  "id": "woven_tags_test",
+  "name": "Woven Tags Test Mod",
   "version": "${version}",
   "description": "${description}",
   "license": "Apache-2.0",
@@ -16,13 +16,10 @@
   "icon": "assets/woven/icon.png",
   "environment": "*",
   "mixins": [
-    "woven-tags.mixins.json"
+    "woven-tags-test.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.9.0",
     "minecraft": ">=1.16.2"
-  },
-  "custom": {
-    "modmenu:api": true
   }
 }

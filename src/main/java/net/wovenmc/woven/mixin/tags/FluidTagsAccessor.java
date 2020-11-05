@@ -14,15 +14,19 @@
  * limitations under the License.
  */
 
-package net.wovenmc.woven.impl.template;
+package net.wovenmc.woven.mixin.tags;
 
-import org.apache.logging.log4j.LogManager;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
-import net.fabricmc.api.ModInitializer;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.tag.FluidTags;
+import net.minecraft.tag.RequiredTagList;
 
-public class TemplateModInitializer implements ModInitializer {
-	@Override
-	public void onInitialize() {
-		LogManager.getLogger("woven_module_template").info("Woven Module Template initialized.");
+@Mixin(FluidTags.class)
+public interface FluidTagsAccessor {
+	@Accessor("REQUIRED_TAGS")
+	static RequiredTagList<Fluid> getRequiredTags() {
+		throw new Error("Fluid tag accessor did not properly apply");
 	}
 }
