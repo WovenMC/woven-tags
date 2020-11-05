@@ -6,6 +6,24 @@ plugins {
 	id 'net.minecrell.licenser' version '0.4.1'
 }
 
+ext {
+	secretsPresent = false
+	release = true
+}
+
+// published snapshot builds
+if (file('secrets.gradle').exists()) {
+	apply from: 'secrets.gradle'
+	project.ext.secretsPresent = true;
+}
+
+// add -SNAPSHOT if not releasing via GH Actions.
+// (if manual release is necessary, change condition on if statement in publishing repos block, along with username+password fields)
+if (System.getenv("MAVEN_PASS") == null) {
+	project.module_version += "-SNAPSHOT";
+	project.ext.release = false;
+}
+
 repositories {
 	maven {
 		name "WovenMC"
@@ -153,6 +171,25 @@ publishing {
 
 	repositories {
 		mavenLocal()
-		// TODO: add maven
+		if(project.ext.secretsPresent) {
+			maven {
+				url "https://maven.wovenmc.net/repository/maven-snapshots/"
+				name "snapshots"
+				credentials {
+					username project.ext.mavenUser
+					password project.ext.mavenPass
+				}
+			}
+		}
+		if(project.ext.release) {
+			maven {
+				url "https://maven.wovenmc.net/repository/maven-releases/"
+				name "releases"
+				credentials {
+					username "wovenuploads"
+					password System.getenv("MAVEN_PASS")
+				}
+			}
+		}
 	}
 }
