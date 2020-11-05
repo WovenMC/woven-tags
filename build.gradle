@@ -186,7 +186,7 @@ publishing {
 				url "https://maven.wovenmc.net/repository/maven-releases/"
 				name "releases"
 				credentials {
-					username "wovenuploads"
+					username "wovenupload"
 					password System.getenv("MAVEN_PASS")
 				}
 			}
