@@ -53,8 +53,7 @@ dependencies {
 	// Mod loader
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	
-	modImplementation "net.wovenmc:woven_resource_loader:${project.resource_loader_version}"
-	include "net.wovenmc:woven_resource_loader:${project.resource_loader_version}"
+	modRuntime "net.wovenmc:woven_resource_loader:${project.resource_loader_version}"
 
 	api 'org.jetbrains:annotations:17.0.0'
 
