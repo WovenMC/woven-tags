@@ -48,7 +48,7 @@ import net.wovenmc.woven.mixin.tags.FluidTagsAccessor;
 @ApiStatus.Internal
 public class WovenTagsImpl implements WovenTags {
 	public static final WovenTagsImpl INSTANCE = new WovenTagsImpl();
-	public static DynamicRegistryManager.Impl registryManager;
+	public static DynamicRegistryManager registryManager;
 
 	private final Map<RegistryKey<? extends Registry<?>>, TagGroup<?>> tagGroupMap = new HashMap<>();
 
@@ -76,7 +76,7 @@ public class WovenTagsImpl implements WovenTags {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<TagLoaderInfo<?>> prepare(ResourceManager manager) {
 		tagGroupMap.clear();
-		Map<? extends RegistryKey<? extends Registry<?>>, ? extends SimpleRegistry<?>> dynRegistries = ((DynamicRegistryManagerImplAccessor) (Object) registryManager)
+		Map<? extends RegistryKey<? extends Registry<?>>, ? extends SimpleRegistry<?>> dynRegistries = ((DynamicRegistryManagerImplAccessor) registryManager)
 				.getRegistries();
 		List<TagLoaderInfo<?>> loaderList = new ArrayList<>();
 

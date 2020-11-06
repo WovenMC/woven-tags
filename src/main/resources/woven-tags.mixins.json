@@ -6,6 +6,7 @@
     "DynamicRegistryManagerImplAccessor",
     "DynamicRegistryManagerMixin",
     "FluidTagsAccessor",
+    "MinecraftServerMixin",
     "TagManagerLoaderMixin"
   ]
 }
